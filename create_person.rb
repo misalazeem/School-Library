@@ -1,6 +1,6 @@
 require_relative 'create_student'
 
-module Create_person
+module CreatePerson
   def create_person
     print 'Do you want to create a Student(1) or a Teacher(2)? [Input the number]: '
     p_option = gets.chomp.to_i

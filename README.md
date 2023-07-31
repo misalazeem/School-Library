@@ -110,6 +110,12 @@ To get a local copy of this project up and running, follow these steps.
     </li>
 </ul>
 
+**Wilhelm Naayole Kamulunga**
+
+- GitHub: [@githubhandle](https://github.com/WilhelmK109)
+- Twitter: [@twitterhandle](https://twitter.com/ActiveK7)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/wilhelm-kamulunga-613675114/)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->

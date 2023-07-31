@@ -1,6 +1,6 @@
 require_relative 'app'
 
-module Rental_list
+module RentalList
   def rental_list
     puts 'Enter ID of the person'
     display_all_people

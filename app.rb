@@ -15,14 +15,14 @@ require_relative 'rental_list'
 class App
   attr_accessor :books, :stundents, :teachers, :rental
 
-  include Display_people
-  include Create_person
-  include Create_student
-  include Create_teacher
-  include Display_books
-  include Create_book
-  include Create_rental
-  include Rental_list
+  include DisplayPeople
+  include CreatePerson
+  include CreateStudent
+  include CreateTeacher
+  include DisplayBooks
+  include CreateBook
+  include CreateRental
+  include RentalList
 
   def initialize
     @people = []
@@ -30,7 +30,23 @@ class App
     @rentals = []
   end
 
-  def run
-    prompt
+  def run(option)
+    case option
+    when 1
+      display_all_books
+    when 2
+      display_all_people
+    when 3
+      create_person
+    when 4
+      create_book
+    when 5
+      create_rental
+    when 6
+      rental_list
+    else
+      puts 'Thank you for using this app!'
+      exit
+    end
   end
 end

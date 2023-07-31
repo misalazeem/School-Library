@@ -1,6 +1,6 @@
 require_relative 'app'
 
-module Create_teacher
+module CreateTeacher
   def create_teacher(name, age, specialization)
     teacher = Teacher.new(specialization, age, name)
     @people << teacher

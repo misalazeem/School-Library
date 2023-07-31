@@ -1,6 +1,6 @@
 require_relative 'app'
 
-module Create_book
+module CreateBook
   def create_book
     print 'Title: '
     title = gets.chomp
