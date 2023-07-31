@@ -3,9 +3,20 @@ require_relative 'teacher'
 require_relative 'book'
 require_relative 'rental'
 require_relative 'classroom'
+require_relative 'display_people'
+require_relative 'create_person'
+require_relative 'create_student'
+require_relative 'create_teacher'
+require_relative 'display_books'
 
 class App
   attr_accessor :books, :stundents, :teachers, :rental
+
+  include Display_people
+  include Create_person
+  include Create_student
+  include Create_teacher
+  include Display_books
 
   def initialize
     @people = []
@@ -13,51 +24,7 @@ class App
     @rentals = []
   end
 
-  def display_all_people
-    @people.each_with_index do |people, index|
-      puts "#{index}) [#{people.title}] Name: #{people.name}, ID: #{people.id}, Age: #{people.age}"
-    end
-  end
 
-  def display_all_books
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: '#{book.title}', Author: '#{book.author}'"
-    end
-  end
-
-  def create_person
-    print 'Do you want to create a Student(1) or a Teacher(2)? [Input the number]: '
-    p_option = gets.chomp.to_i
-    while p_option != 1 && p_option != 2
-      puts 'Invalid input. Please enter 1 or 2:'
-      gets.chomp.to_i
-    end
-    print 'Age: '
-    age = gets.chomp.to_i
-    print 'Name: '
-    name = gets.chomp
-    if p_option == 1
-      print 'Has parent permission [Y/N]: '
-      parent_permission = gets.chomp.upcase
-      create_student(name, age, parent_permission, classroom_: 'class')
-    else
-      print 'Specialization: '
-      specialization = gets.chomp
-      create_teacher(name, age, specialization)
-    end
-    puts 'Person created successfully'
-  end
-
-  def create_teacher(name, age, specialization)
-    teacher = Teacher.new(specialization, age, name)
-    @people << teacher
-  end
-
-  def create_student(name, age, _parent_permission, classroom_)
-    classroom = Classroom.new(classroom_)
-    student = Student.new(classroom, age, name)
-    @people << student
-  end
 
   def create_book
     print 'Title: '
