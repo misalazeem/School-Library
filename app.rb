@@ -54,6 +54,7 @@ class App
       exit
     end
   end
+
   def exit
     save_books
   end
