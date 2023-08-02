@@ -3,26 +3,26 @@ require_relative '../rental'
 require_relative '../person'
 
 RSpec.describe Book do
-  let(:title) { "The Great Gatsby" }
-  let(:author) { "F. Scott Fitzgerald" }
+  let(:title) { 'The Great Gatsby' }
+  let(:author) { 'F. Scott Fitzgerald' }
   let(:book) { Book.new(title, author) }
 
-  describe "#initialize" do
-    it "creates a new book with the correct title and author" do
+  describe '#initialize' do
+    it 'creates a new book with the correct title and author' do
       expect(book.title).to eq(title)
       expect(book.author).to eq(author)
     end
 
-    it "creates a new book with an empty rentals array" do
+    it 'creates a new book with an empty rentals array' do
       expect(book.rentals).to be_an(Array)
       expect(book.rentals).to be_empty
     end
   end
 
-  describe "#add_rental" do
-    it "creates a new rental for the book and person" do
-      person = Person.new(25, "John Doe")
-      date = "2023/08/03"
+  describe '#add_rental' do
+    it 'creates a new rental for the book and person' do
+      person = Person.new(25, 'John Doe')
+      date = '2023/08/03'
       rental = book.add_rental(person, date)
 
       expect(rental).to be_a(Rental)
@@ -32,8 +32,8 @@ RSpec.describe Book do
     end
 
     it "adds the rental to the book's rentals array" do
-      person = Person.new(30, "Jane Smith")
-      date = "2023/08/03"
+      person = Person.new(30, 'Jane Smith')
+      date = '2023/08/03'
       book.add_rental(person, date)
 
       expect(book.rentals.length).to eq(1)
