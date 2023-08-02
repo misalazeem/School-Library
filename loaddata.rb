@@ -25,6 +25,7 @@ module LoadData
 
     people_list = load_data_from_file(PERSON_FILE_NAME)
     people_list.each do |person|
+      puts person['title']
       if person['title'] == 'Student'
         student = Student.new(Classroom.new(person['classroom']), person['age'], person['name'],
                               parent_permission: person['parent_permission'])
