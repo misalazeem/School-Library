@@ -1,14 +1,12 @@
 require_relative 'app'
+require_relative 'rental'
 
 module RentalList
   def rental_list
-    puts 'Enter ID of the person'
-    display_all_people
-    person_id = gets.chomp.to_i
-    person = @people.select { |p| p.id == person_id }[0]
-    puts 'Rentals: '
-    person.rentals.each_with_index do |rental, index|
-      puts "#{index + 1}) Book: #{rental.book.title}, Date: #{rental.date}"
+    print 'Id of person: '
+    id = gets.chomp.to_i
+    @rentals.each do |rental|
+      puts "Date: #{rental.date}, Book: '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == id
     end
   end
 end

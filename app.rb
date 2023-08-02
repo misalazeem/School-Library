@@ -11,6 +11,8 @@ require_relative 'display_books'
 require_relative 'create_book'
 require_relative 'create_rental'
 require_relative 'rental_list'
+require_relative 'preservedata'
+require_relative 'loaddata'
 
 class App
   attr_accessor :books, :stundents, :teachers, :rental
@@ -23,11 +25,16 @@ class App
   include CreateBook
   include CreateRental
   include RentalList
+  include PreserveData
+  include LoadData
 
   def initialize
     @people = []
     @books = []
     @rentals = []
+    load_books
+    load_people
+    load_rentals
   end
 
   def run(option)
@@ -48,5 +55,11 @@ class App
       puts 'Thank you for using this app!'
       exit
     end
+  end
+
+  def exit
+    save_books
+    save_people
+    save_rentals
   end
 end
