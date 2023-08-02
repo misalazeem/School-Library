@@ -2,8 +2,6 @@ require 'json'
 require_relative 'book'
 require_relative 'student'
 require_relative 'teacher'
-require_relative 'person'
-require_relative 'rental'
 
 module PreserveData
   BOOKS_FILE_NAME = './books.json'.freeze
@@ -26,23 +24,41 @@ module PreserveData
 
   def save_people
     people_list = @people.map do |person|
-      {
-        name: person.name,
-        age: person.age,
-        id: person.id,
-        parent_permission: person.parent_permission || false
-      }
+      if person.title == 'Student'
+        {
+          id: person.id.to_s, name: person.name, age: person.age,
+          parent_permission: person.parent_permission, classroom: person.classroom.label,
+          title: person.title
+        }
+      else
+        {
+          id: person.id.to_s, name: person.name, age: person.age,
+          specialization: person.specialization, title: person.title
+        }
+      end
     end
     save_to_file(PERSON_FILE_NAME, people_list)
   end
 
   def save_rentals
-    rentals_list = @rentals.map do |rental|
-      {
+    rentals_list = []
+    @rentals.each do |rental|
+      rental_item = {
         date: rental.date,
-        book_title: rental.book.title,
-        person_id: rental.person.id
+        book: {
+          title: rental.book.title, author: rental.book.author
+        },
+        person: {
+          id: rental.person.id, name: rental.person.name, age: rental.person.age,
+          parent_permission: rental.person.parent_permission, title: rental.person.title
+        }
       }
+      if rental.person.title == 'Student'
+        rental_item[:person][:classroom] = rental.person.classroom.label
+      else
+        rental_item[:person][:specialization] = rental.person.specialization
+      end
+      rentals_list << rental_item
     end
     save_to_file(RENTALS_FILE_NAME, rentals_list)
   end

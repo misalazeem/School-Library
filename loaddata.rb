@@ -2,8 +2,6 @@ require 'json'
 require_relative 'book'
 require_relative 'student'
 require_relative 'teacher'
-require_relative 'person'
-require_relative 'rental'
 
 module LoadData
   BOOKS_FILE_NAME = './books.json'.freeze
@@ -26,10 +24,17 @@ module LoadData
     return people_list unless File.exist?(PERSON_FILE_NAME)
 
     people_list = load_data_from_file(PERSON_FILE_NAME)
-
-    @people = people_list.map do |person|
-      parent_permission = person['parent_permission'] || false
-      Person.new(person['age'], person['name'], parent_permission: parent_permission)
+    people_list.each do |person|
+      if person['title'] == 'Student'
+        student = Student.new(Classroom.new(person['classroom']), person['age'], person['name'],
+                              parent_permission: person['parent_permission'])
+        student.id = person['id']
+        @people << student
+      else
+        teacher = Teacher.new(person['specialization'], person['age'], person['name'])
+        teacher.id = person['id']
+        @people << teacher
+      end
     end
   end
 
@@ -39,21 +44,28 @@ module LoadData
 
     rentals_list = load_data_from_file(RENTALS_FILE_NAME)
 
-    @rentals = rentals_list.map do |rental_data|
-      book = @books.find { |book| book.title == rental_data['book_title'] }
-      person = @people.find { |person| person.id == rental_data['person_id'] }
-      Rental.new(rental_data['date'], book, person)
+    rentals_list.each do |rental|
+      book = Book.new(rental['book']['title'], rental['book']['author'])
+      person = create_rental_person(rental['person'])
+      @rentals << Rental.new(rental['date'], book, person)
+    end
+  end
+
+  def create_rental_person(person)
+    if person['title'] == 'Student'
+      student = Student.new(Classroom.new(person['classroom']), person['age'], person['name'],
+                            parent_permission: person['parent_permission'])
+      student.id = person['id'].to_i
+      student
+    else
+      teacher = Teacher.new(person['specialization'], person['age'], person['name'])
+      teacher.id = person['id'].to_i
+      teacher
     end
   end
 
   def load_data_from_file(file_name)
     file = File.read(file_name)
-    return [] if file.strip.empty?  # Return an empty array if the file is empty
     JSON.parse(file)
   end
-
-  # def load_data_from_file(file_name)
-  #   file = File.read(file_name)
-  #   JSON.parse(file)
-  # end
 end
