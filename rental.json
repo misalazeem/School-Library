@@ -9,11 +9,25 @@
       "id": 719,
       "name": "Rose",
       "age": 17,
-      "parent_permission": true,
       "title": "Student",
       "classroom": {
         "classroom_": "class"
-      }
+      },
+      "parent_permission": true
+    }
+  },
+  {
+    "date": "2023/05/20",
+    "book": {
+      "title": "Game of thrones",
+      "author": "George Martin"
+    },
+    "person": {
+      "id": 257,
+      "name": "Doctor",
+      "age": 845,
+      "title": "Teacher",
+      "specialization": "Time Travel"
     }
   }
 ]

@@ -49,12 +49,12 @@ module PreserveData
           title: rental.book.title, author: rental.book.author
         },
         person: {
-          id: rental.person.id, name: rental.person.name, age: rental.person.age,
-          parent_permission: rental.person.parent_permission, title: rental.person.title
+          id: rental.person.id, name: rental.person.name, age: rental.person.age, title: rental.person.title
         }
       }
       if rental.person.title == 'Student'
         rental_item[:person][:classroom] = rental.person.classroom.label
+        rental_item[:person][:parent_permission] = rental.person.parent_permission
       else
         rental_item[:person][:specialization] = rental.person.specialization
       end
