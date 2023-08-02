@@ -33,6 +33,8 @@ class App
     @books = []
     @rentals = []
     load_books
+    load_people
+    load_rentals
   end
 
   def run(option)
@@ -57,5 +59,7 @@ class App
 
   def exit
     save_books
+    save_people
+    save_rentals
   end
 end

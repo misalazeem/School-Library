@@ -2,6 +2,8 @@ require 'json'
 require_relative 'book'
 require_relative 'student'
 require_relative 'teacher'
+require_relative 'person'
+require_relative 'rental'
 
 module PreserveData
   BOOKS_FILE_NAME = './books.json'.freeze
@@ -20,5 +22,28 @@ module PreserveData
       }
     end
     save_to_file(BOOKS_FILE_NAME, books_list)
+  end
+
+  def save_people
+    people_list = @people.map do |person|
+      {
+        name: person.name,
+        age: person.age,
+        id: person.id,
+        parent_permission: person.parent_permission || false
+      }
+    end
+    save_to_file(PERSON_FILE_NAME, people_list)
+  end
+
+  def save_rentals
+    rentals_list = @rentals.map do |rental|
+      {
+        date: rental.date,
+        book_title: rental.book.title,
+        person_id: rental.person.id
+      }
+    end
+    save_to_file(RENTALS_FILE_NAME, rentals_list)
   end
 end
